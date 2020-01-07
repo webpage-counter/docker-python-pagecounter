@@ -8,9 +8,9 @@ env:
   - REGISTRY_USER=denov
   - secure: hOzfeOC1EN5RluR+IyXljpGdd/VgLF7nVFQttZmk5tv+TmkUUBD7vIfCsoSOg/XDeAjzNkqIlGck5aVHYWeoR6ai3SlwxLxNDGEKPYHah2M6lncdl4zkV4dbc823DRJHLLrHFgBXU7AIRLko6Ps9LmTA1jF5tayOMcP9RBOzzkDIWJhxlm/WjJnt7uasfnJwqWVNpw22RgkK9T+nGLIa675adv8xZYb7wKxZGXS7NIXxZzEBPcTEd0kbjLW9VoD9HVBpYtGgsJ9qIpmc1SjxZWXXhB6yn5NRJ4xJjrZxV97rR/MP8Ko5uYpvqKUZuwQgzhYAoxcuI+22LFqH1HA3/ZGkit/OJUUVEs/u62iSvm+bKkG79FQ2uNHdLstP4gG7rPd/yyL8dHKDmfjL1fzcalI7z8+GxpeKabQT5vmcHrg24kw5OTXjXTF1VFfmbSKjzWqEqbE+MgPC2toASQ5KPMqv3+qYRnKsmvGonTDVQRRASOXl/HjAed81sDYBdV6fkrF2KWMKb/McAsLoAOwgvWFQzlBmIk7rGNVlRIHUXEwH1s7lTP4QQ6iVOSXjr4GHVz1nAW1N6XyBUzXpRHkT6ddxDmWgGpPKMLGZ2kAr9tLUBPOf/yFMr/KMgAO5kz4wCQ+qSkbdxTRdRMMC12nBk+0lBHciOpiW7Q5MGV2QRVU=
 install:
-- pip3 install Flask --user
-- pip3 install redis --user
-- pip3 install requests --user
+- pip3 install Flask
+- pip3 install redis
+- pip3 install requests
 - docker run -d --rm --name redis --network="host" redis:4-alpine redis-server --requirepass
   testpass
 - "./app/test_counter.py </dev/null &>/dev/null &"
