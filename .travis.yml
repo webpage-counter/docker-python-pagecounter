@@ -14,8 +14,6 @@ install:
 - docker run -d --rm --name redis --network="host" redis:4-alpine redis-server --requirepass
   testpass
 - "./app/test_counter.py </dev/null &>/dev/null &"
-script:
-- bash test.sh
 before_deploy:
 - docker build -t denov/webpage-counter:latest .
 - docker tag denov/webpage-counter:latest denov/webpage-counter:${TRAVIS_TAG}
