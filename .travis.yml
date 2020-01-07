@@ -11,9 +11,11 @@ install:
 - pip3 install Flask
 - pip3 install redis
 - pip3 install requests
-- docker run -d --rm --name redis --network="host" redis:4-alpine redis-server --requirepass
+- docker run -d --rm --name redis --network="host" redis:4-alpine redis-server --requirepass testpass
   testpass
 - "./app/test_counter.py </dev/null &>/dev/null &"
+script:
+- python3 test_counter.py
 before_deploy:
 - docker build -t denov/webpage-counter:latest .
 - docker tag denov/webpage-counter:latest denov/webpage-counter:${TRAVIS_TAG}
