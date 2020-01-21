@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 
 def connection():
 
-    url = "http://10.10.56.11:8500/v1/catalog/service/webapp-proxy-sidecar-proxy"
+    url = "http://10.123.1.11:8500/v1/catalog/service/webapp-proxy-sidecar-proxy"
     req = Request(url)
     try:
         response = urlopen(req)
@@ -28,12 +28,12 @@ def connection():
         DB_IP = output[0]["ServiceProxy"]["LocalServiceAddress"]
         DB_PORT=output[0]["ServiceProxy"]["Upstreams"][0]["LocalBindPort"]
 
-        vault_url = "http://10.10.56.11:8500/v1/catalog/service/vault"
+        vault_url = "http://10.123.1.11:8500/v1/catalog/service/vault"
         vault_response = urllib.request.urlopen(vault_url).read()
         vault_output = json.loads(vault_response.decode('utf-8'))
         VAULT_IP = vault_output[0]["Address"]
         VAULT_PORT = vault_output[0]["ServicePort"]
-        token_url = "http://10.10.56.11:8500/v1/kv/vault/token"
+        token_url = "http://10.123.1.11:8500/v1/kv/vault/token"
         vault_res = urllib.request.urlopen(token_url).read()
         encr_token = json.loads(vault_res.decode('utf-8'))
         ETOKEN = encr_token[0]["Value"]
