@@ -8,7 +8,7 @@ curl -L -o /tmp/cni-plugins.tgz https://github.com/containernetworking/plugins/r
 sudo mkdir -p /opt/cni/bin
 sudo tar -C /opt/cni/bin -xzf /tmp/cni-plugins.tgz
 
-nomad run /vagrant/nomad-job/fabio.nomad
-nomad run /vagrant/nomad-job/web_app.nomad
+# nomad run /vagrant/nomad-job/fabio.nomad
+# nomad run /vagrant/nomad-job/web_app.nomad
 
 set +x

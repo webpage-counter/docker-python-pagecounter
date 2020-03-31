@@ -37,6 +37,7 @@ Vagrant.configure("2") do |config|
         node.vm.provision :shell, path: "scripts/start_consul.sh", env: {"SERVER_COUNT" => SERVER_COUNT,"LOG_LEVEL" => LOG_LEVEL,"DOMAIN" => DOMAIN,"DCS" => dcname,"DC" => dc}
         node.vm.provision :shell, path: "scripts/install_nomad.sh", env: {"NOMAD_VER" => NOMAD_VER}
         node.vm.provision :shell, path: "scripts/start_nomad.sh", env: {"SERVER_COUNT" => SERVER_COUNT,"LOG_LEVEL" => LOG_LEVEL,"DCS" => dcname,"DC" => dc}
+        node.vm.provision :shell, path: "scripts/init_app.sh", privileged: true
         node.vm.network "private_network", ip: "10.#{10*dc}.58.#{10+i}"
       end
 
@@ -68,7 +69,7 @@ Vagrant.configure("2") do |config|
       nm.vm.provision :shell, path: "scripts/install_nomad.sh", env: {"NOMAD_VER" => NOMAD_VER}
       nm.vm.provision :shell, path: "scripts/start_nomad.sh", env: {"SERVER_COUNT" => SERVER_COUNT,"LOG_LEVEL" => LOG_LEVEL,"DCS" => dcname,"DC" => dc}
       nm.vm.provision :shell, path: "scripts/init_app.sh", privileged: true
-      nm.vm.network "private_network", ip: "10.10.58.100"
+      nm.vm.network "private_network", ip: "10.123.1.11"
     end
   end
 end
