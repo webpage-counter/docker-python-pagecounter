@@ -1,6 +1,43 @@
+provider "nomad" {
+  address = "http://10.10.58.11:4646"
+}
+
+resource "nomad_job" "fabio" {
+  jobspec = <<EOT
+job "fabio" {
+  datacenters = ["dc1"]
+  type = "system"
+  group "fabio" {
+    task "fabio" {
+      driver = "docker"
+      config {
+        image = "fabiolb/fabio"
+        network_mode = "host"
+      }
+      resources {
+        cpu    = 200
+        memory = 128
+        network {
+          mbits = 20
+          port "lb" {
+            static = 9999
+          }
+          port "ui" {
+            static = 9998
+          }
+        }
+      }
+    }
+  }
+}
+EOT
+}
+
+
+resource "nomad_job" "app" {
+  jobspec = <<EOT
 job "web_app" {
   datacenters = ["dc1"]
-
   group "db" {
     network {
       mode = "bridge"
@@ -8,7 +45,6 @@ job "web_app" {
     service {
       name = "redis"
       port = "6379"
-
       connect {
         sidecar_service {}
       }
@@ -18,24 +54,21 @@ job "web_app" {
       config {
         image = "redis:4-alpine" # Docker image to download (uses public hub by default)
         args = [
-          "redis-server", "--requirepass", "redispass"
+          "redis-server", "--requirepass", "${var.dbpass}"
          
         ]  
       }
     } 
   }  
-
   group "counter" {
-    count = 2
+    count = 3
     network {
       mode = "bridge"
-
       port "http" {
   
         to     = 5000
       }
     }
-
     service {
       name = "webapp-proxy"
       port = "http"
@@ -50,7 +83,6 @@ job "web_app" {
         }
       }
     }
-
     service {
       name = "webapp"
       port = "http"
@@ -72,4 +104,6 @@ job "web_app" {
       }
     }
   }
+}
+EOT
 }
