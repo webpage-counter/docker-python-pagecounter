@@ -1,9 +1,9 @@
 # variables
 SERVER_COUNT = 1
-CONSUL_VER = "1.6.0"
+CONSUL_VER = "1.7.2"
 VAULT= "1.2.3"
 DOMAIN = "consul"
-NOMAD_VER = "0.10.1"
+NOMAD_VER = "0.10.5"
 
 #The available log levels are "trace", "debug", "info", "warn", and "err". if empty - default is "info"
 LOG_LEVEL = "trace" 

@@ -100,7 +100,7 @@ job "web_app" {
     task "app" {
       driver = "docker"      
       config {
-        image = "denov/webpage-counter:0.1.1" 
+        image = "denov/webpage-counter:0.1.3" 
       }
     }
   }
